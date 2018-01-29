@@ -5,19 +5,19 @@ function [P] = Approximate(a, b, lambda, d, N)
 %   waste
 P = zeros(N,N);
 
+% handy constant values to keep expressions short in the following 
+% approximations
+h = (b-a)/N;
+v = -(lambda + d);
+
 %Applying the boundary conditions
 %   Setting the right column to 0
 P(:,N)=0;
 %   Applying the diagonal condition
 for i = 1:N
-    x = a + ((b-a)/N)*i;
-    P(i,i)= (1/2)*(lambda + d)*(x - b);
+    x = a + h*i;
+    P(i,i)= (-1/2)*v*(x - b);
 end
-
-% handy constant values to keep expressions short in the following 
-% approximations
-h = (b-a)/N;
-v = -(lambda + d);
 
 % Going through the whole domain to compute the next approximation for each
 % cell of the matrix. We do not touch the areas whose boundary conditions 
